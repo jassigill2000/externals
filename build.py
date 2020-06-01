@@ -140,10 +140,14 @@ def get_package_arch():
 def get_package_type():
     log = logging.getLogger(__name__)
     pld = platform.linux_distribution()[0]
+    if pld == '':
+        import distro
+        pld = distro.linux_distribution()[0]
+
     log.debug('linux distribution detected: {0}'.format(pld))
     if pld in ['debian', 'Ubuntu']:
         pt = 'deb'
-    elif pld in ['CentOS', 'CentOS Linux', 'Red Hat Enterprise Linux Server', 'Scientific Linux', 'openSUSE ', 'SUSE Linux Enterprise Server']:
+    elif pld in ['CentOS', 'CentOS Linux', 'Red Hat Enterprise Linux Server', 'Scientific Linux', 'openSUSE ', 'openSUSE Leap', 'SUSE Linux Enterprise Server']:
         pt = 'rpm'
     else:
         if platform.mac_ver()[0] != '':
