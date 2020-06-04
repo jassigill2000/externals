@@ -384,7 +384,7 @@ def build_package(target):
         package_cmd.extend(['-t', get_package_type()])
         package_cmd.extend(['-n', 'irods-externals-{0}'.format(package_subdirectory)])
         try:
-            if get_package_type() == 'rpm' and v['rpm_dependencies']:
+            if get_package_type() == 'rpm' and v['rpm_dependencies'] and 'Centos' in platform.linux_distribution()[0].capitalize():
                 for d in v['rpm_dependencies']:
                     package_cmd.extend(['-d', d])
         except KeyError:
